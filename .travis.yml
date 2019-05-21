@@ -17,14 +17,16 @@ service :
 
 env :
   - IMAGE_NAME=938788377650.dkr.ecr.eu-west-1.amazonaws.com/juice-shop:1.0-$TRAVIS_BUILD_NUMBER
-addons:
+addons:s
   sonarcloud:
     organization: "thoril-github" 
+  artifacts: 
+    s3_region: "eu-west-1" 
    
 script:
   # other script steps might be done before running the actual analysis
   - sonar-scanner -Dsonar.javascript.lcov.reportPaths=./build/reports/coverage/server-tests/lcov.info
-  -  ./dependency-check/bin/dependency-check.sh --project Testing --out . --scan .
+  - sh ./dependency-check/bin/dependency-check.sh --project Testing --out . --scan .
 #before_deploy:
 #  - rm -rf node_modules
 #  - rm -rf frontend/node_modules
