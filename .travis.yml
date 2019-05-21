@@ -24,6 +24,7 @@ addons:
 script:
   # other script steps might be done before running the actual analysis
   - sonar-scanner -Dsonar.javascript.lcov.reportPaths=./build/reports/coverage/server-tests/lcov.info
+  -  ./dependency-check/bin/dependency-check.sh --project Testing --out . --scan .
 #before_deploy:
 #  - rm -rf node_modules
 #  - rm -rf frontend/node_modules
