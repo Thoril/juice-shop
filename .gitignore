@@ -32,7 +32,7 @@ out/
 # Branch ghpages
 assets/
 !frontend/src/assets/
-
+#TEST bbllb
 # Custom configuration files
 config/*.yml
 !config/bodgeit.yml
