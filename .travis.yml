@@ -1,6 +1,7 @@
 language: node_js
 node_js:
   - 11
+dist: trusty
 stages:
 #  - lint
 #  - test
@@ -16,7 +17,12 @@ service :
 
 env :
   - IMAGE_NAME=938788377650.dkr.ecr.eu-west-1.amazonaws.com/juice-shop:1.0-$TRAVIS_BUILD_NUMBER
-
+addons:
+  sonarcloud:
+    organization: "thoril-github" 
+script:
+  # other script steps might be done before running the actual analysis
+  - sonar-scanner
 #before_deploy:
 #  - rm -rf node_modules
 #  - rm -rf frontend/node_modules
