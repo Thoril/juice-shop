@@ -12,3 +12,11 @@ addons:
 script:
   - sudo mkdir report && sudo chown 1000:1000 report
   - docker run -t -v $(pwd)/report:/zap/wrk/:rw owasp/zap2docker-stable zap-baseline.py -t http://34.255.30.110:32771 -r testreport.html || true
+  - CLAIR_ADDR=http://clair.3r1.co:6060
+  - CLAIR_OUTPUT=High
+  - CLAIR_THRESHOLD=10
+  - DOCKER_LOGIN=`aws ecr get-login --no-include-email`
+  - PASSWORD=`echo $DOCKER_LOGIN | cut -d' ' -f6`
+  - REGISTRY=`echo $DOCKER_LOGIN | cut -d' ' -f7 | sed "s/https:\/\///"`
+  - DOCKER_USER=AWS DOCKER_PASSWORD=${PASSWORD} ./klar ${REGISTRY}/my-image
+  - ./klar-2.4.0-linux-amd64
